@@ -46,6 +46,18 @@ class GildedRoseTest {
         assertEquals(10,app.items[0].sellIn)
 
     }
+    @Test fun Backstage_Passes(){
+        val app = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",12,30))
+        app.updateQuality()
+        assertEquals(31,app.items[0].quality)
+        val app1 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",10,30))
+        app1.updateQuality()
+        assertEquals(32,app1.items[0].quality)
+        val app2 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",5,30))
+        app2.updateQuality()
+        assertEquals(33,app2.items[0].quality)
+
+    }
 
 }
 
