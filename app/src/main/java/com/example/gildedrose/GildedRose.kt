@@ -4,12 +4,12 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items) {
-            if (i.name!="Sulfuras"){
-                i.sellIn--
+            if (i.name=="Sulfuras"){
+                continue //sulfuras doesn't age or decay
             }else{
-                continue
+                i.sellIn--
             }
-            var delta=0
+            var delta=0 //amount quality changes by
             if (i.name == "Aged Brie"){
                 delta=1
             }else if (i.name.contains("Backstage passes")){
@@ -18,7 +18,7 @@ class GildedRose(var items: Array<Item>) {
                 }else if (i.sellIn<5){
                     delta=3
                 }else if (i.sellIn<=0){
-                    i.quality=0
+                    i.quality=0 //expired ticket, set quality to 0 without delta as don't want doubling
                 }else{
                     delta=1
                 }
@@ -32,6 +32,7 @@ class GildedRose(var items: Array<Item>) {
                 delta*=2
             }
             i.quality+=delta
+            //clamp quality
             if (i.quality<0){
                 i.quality=0
             }else if (i.quality>50){
