@@ -4,15 +4,27 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class GildedRoseTest {
-
-    @Test fun foo() {
-        val items = arrayOf<Item>(Item("foo", 0, 0))
-        val app = GildedRose(items)
+    fun single_item_setup(i:Item):GildedRose{
+        return GildedRose(arrayOf(i))
+    }
+    @Test fun basic_item() {
+        val app = single_item_setup(Item("spam", 10, 5))
         app.updateQuality()
-        assertEquals("fixme", app.items[0].name)
+        assertEquals("spam", app.items[0].name)
+        assertEquals(9, app.items[0].sellIn)
+        assertEquals(4,app.items[0].quality)
 
     }
-
+    @Test fun expiry(){
+        val app = single_item_setup(Item("dodgy milk", 0, 5))
+        app.updateQuality()
+        assertEquals(3,app.items[0].quality)
+    }
+    @Test fun quality_limit(){
+        val app = single_item_setup(Item("pile of rust", 0, 0))
+        app.updateQuality()
+        assertEquals(0,app.items[0].quality)
+    }
 
 }
 
