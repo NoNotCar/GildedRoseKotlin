@@ -85,6 +85,13 @@ class GildedRoseTest {
         assertEquals(11,app.items[0].quality)
     }
 
+    @Test fun Conjured_Sulfuras(){
+        //Checks that conjured sulfuras doesn't change in quality
+        val app = single_item_setup(Item("Conjured Sulfuras", 11, 5))
+        app.updateQuality()
+        assertEquals(5,app.items[0].quality)
+    }
+
 }
 
 
