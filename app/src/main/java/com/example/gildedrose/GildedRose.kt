@@ -1,7 +1,6 @@
 package com.example.gildedrose
 
 class GildedRose(var items: Array<Item>) {
-
     fun updateQuality() {
         for (i in items) {
             if (i.name.contains("Sulfuras")){
