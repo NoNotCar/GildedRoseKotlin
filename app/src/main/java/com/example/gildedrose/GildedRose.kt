@@ -10,7 +10,7 @@ class GildedRose(var items: Array<Item>) {
                 i.sellIn--
             }
             var delta=0 //amount quality changes by
-            if (i.name == "Aged Brie"){
+            if (i.name.contains("Aged Brie")){
                 delta=1
             }else if (i.name.contains("Backstage passes")){
                 if (i.sellIn<=0){
