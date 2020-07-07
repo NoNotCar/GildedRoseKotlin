@@ -72,6 +72,17 @@ class GildedRoseTest {
         assertEquals(0,app4.items[0].quality)
     }
 
+    @Test fun Conjured(){
+        val app = single_item_setup(Item("Conjured spam", 10, 5))
+        app.updateQuality()
+        assertEquals("Conjured spam", app.items[0].name)
+        assertEquals(9, app.items[0].sellIn)
+        assertEquals(3,app.items[0].quality)
+
+
+
+    }
+
 }
 
 
