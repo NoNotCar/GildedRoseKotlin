@@ -47,16 +47,29 @@ class GildedRoseTest {
 
     }
     @Test fun Backstage_Passes(){
-        val app = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",12,30))
+        //Test that quality increases by 1
+        val app = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",11,30))
         app.updateQuality()
         assertEquals(31,app.items[0].quality)
+        //Test that quality increases by 2 when there are 10 or fewer days to go
         val app1 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",10,30))
         app1.updateQuality()
         assertEquals(32,app1.items[0].quality)
-        val app2 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",5,30))
+        //Tests that quality increases by 2 when there are less than 10, but more than 5, days to go
+        val app2 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",6,30))
         app2.updateQuality()
-        assertEquals(33,app2.items[0].quality)
-
+        assertEquals(32,app2.items[0].quality)
+        //Tests that quality increases by 3 when there are 5 or fewer days to go
+        val app3 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",5,30))
+        app3.updateQuality()
+        assertEquals(33,app3.items[0].quality)
+        //Tests that quality falls to zero after the concert
+        val app4 = single_item_setup(Item("Backstage passes to a TAFKAL80ETC concert",0,30))
+        app4.updateQuality()
+        assertEquals(0,app4.items[0].quality)
+        //This second test makes sure the quality stays at zero, and doesn't go below.
+        app4.updateQuality()
+        assertEquals(0,app4.items[0].quality)
     }
 
 }
