@@ -94,6 +94,16 @@ class GildedRoseTest {
         assertEquals(11,app.items[0].quality)
     }
 
+    @Test fun Conjured_passes(){
+        //Checks that passes increase at twice the usual rate (+2)
+        val app = single_item_setup(Item("Conjured Backstage passes", 11, 5))
+        app.updateQuality()
+        assertEquals(7,app.items[0].quality)
+        //Checks that the Conjured, passes with 10 or fewer days to go increase by 4 (+4)
+        app.updateQuality()
+        assertEquals(11,app.items[0].quality)
+    }
+
 }
 
 
