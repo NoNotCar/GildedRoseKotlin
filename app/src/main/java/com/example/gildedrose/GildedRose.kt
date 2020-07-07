@@ -3,53 +3,39 @@ package com.example.gildedrose
 class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
-        for (i in items.indices) {
-            if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                if (items[i].quality > 0) {
-                    if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                        items[i].quality--
-                    }
+        for (i in items) {
+            if (i.name!="Sulfuras"){
+                i.sellIn--
+            }else{
+                continue
+            }
+            var delta=0
+            if (i.name == "Aged Brie"){
+                delta=1
+            }else if (i.name.contains("Backstage passes")){
+                if (i.sellIn<10){
+                    delta=2
+                }else if (i.sellIn<5){
+                    delta=3
+                }else if (i.sellIn<=0){
+                    i.quality=0
+                }else{
+                    delta=1
                 }
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality++
-
-                    if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality++
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality++
-                            }
-                        }
-                    }
-                }
+                delta=-1
             }
-
-            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                items[i].sellIn--
+            if (i.sellIn<=0){
+                delta*=2
             }
-
-            if (items[i].sellIn < 0) {
-                if (items[i].name != "Aged Brie") {
-                    if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].quality > 0) {
-                            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                                items[i].quality--
-                            }
-                        }
-                    } else {
-                        items[i].quality =0
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality++
-                    }
-                }
+            if (i.name.contains("Conjured")){
+                delta*=2
+            }
+            i.quality+=delta
+            if (i.quality<0){
+                i.quality=0
+            }else if (i.quality>50){
+                i.quality=50
             }
         }
     }
