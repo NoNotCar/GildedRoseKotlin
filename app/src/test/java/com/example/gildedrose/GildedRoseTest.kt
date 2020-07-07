@@ -20,10 +20,13 @@ class GildedRoseTest {
         app.updateQuality()
         assertEquals(3,app.items[0].quality)
     }
-    @Test fun quality_limit(){
+    @Test fun quality_limits(){
         val app = single_item_setup(Item("pile of rust", 0, 0))
         app.updateQuality()
         assertEquals(0,app.items[0].quality)
+        val app2=single_item_setup(Item("Aged Brie",10,50))
+        app2.updateQuality()
+        assertEquals(50,app2.items[0].quality)
     }
 
 }
