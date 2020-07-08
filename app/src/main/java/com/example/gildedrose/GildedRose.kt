@@ -35,7 +35,7 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateQuality(item: Item) {
         var qualityDecay = getQualityDecay(item)
-        if (item.sellIn <= 0) {
+        if (item.sellIn < 0) {
             qualityDecay *= 2
         }
         if (item.name.toLowerCase().contains("conjured")) {
