@@ -1,7 +1,7 @@
 package com.example.gildedrose
 
 class GildedRose(var items: Array<Item>) {
-    fun age(i:Item){
+    fun updateSellin(i:Item){
         if (!i.name.contains("Sulfuras")){
             i.sellIn--
         }
@@ -37,7 +37,7 @@ class GildedRose(var items: Array<Item>) {
     }
     fun updateItems() {
         items.forEach{
-            age(it)
+            updateSellin(it)
             updateQuality(it)
             //bop(it)
         }
