@@ -1,13 +1,24 @@
 package com.example.gildedrose
 
+import kotlin.math.min
+
 class GildedRose(var items: Array<Item>) {
-    fun updateSellin(item: Item) {
+
+    fun updateItems() {
+        items.forEach {
+            updateSellin(it)
+            updateQuality(it)
+            //bop(it)
+        }
+    }
+
+    private fun updateSellin(item: Item) {
         if (!item.name.contains("Sulfuras")) {
             item.sellIn--
         }
     }
 
-    fun getQualityDecay(item: Item): Int {
+    private fun getQualityDecay(item: Item): Int {
         if (item.name.contains("Aged Brie")) {
             return -1
         } else if (item.name.contains("Backstage passes")) {
@@ -22,7 +33,7 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    fun updateQuality(item: Item) {
+    private fun updateQuality(item: Item) {
         if (item.name.contains("Sulfuras")) {
             return
         }
@@ -35,20 +46,9 @@ class GildedRose(var items: Array<Item>) {
         }
         item.quality -= qualityDecay
         //clamp quality
-        item.quality = when {
-            (item.quality < 0) -> 0
-            (item.quality > 50) -> 50
-            else -> item.quality
-        }
+        item.quality = min(50,kotlin.math.max(item.quality,0)) //apparently max is ambiguous???
     }
 
-    fun updateItems() {
-        items.forEach {
-            updateSellin(it)
-            updateQuality(it)
-            //bop(it)
-        }
-    }
 
 }
 
