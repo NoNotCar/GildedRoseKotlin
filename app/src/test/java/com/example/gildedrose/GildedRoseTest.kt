@@ -94,8 +94,8 @@ class GildedRoseTest {
 
     @Test
     fun backstage_passes_up_by_3_with_time_between_5_and_1_days() {
-        val item = update_item_once(Item("Backstage passes to a concert", 5, 30))
-        assertEquals(33, item.quality)
+        val item = update_item_once(Item("Backstage passes to a concert", 5, 31))
+        assertEquals(34, item.quality)
         val item2 = update_item_once(Item("Backstage passes to a concert", 1, 33))
         assertEquals(36, item2.quality)
     }
@@ -137,14 +137,14 @@ class GildedRoseTest {
 
     }
     @Test
-    fun conjured_brie_increases_2_per_day() {
+    fun conjured_brie_quality_increases_2_per_day() {
         val item = update_item_once(Item("Conjured Aged Brie", 2, 5))
         assertEquals(7, item.quality)
     }
 
 
     @Test
-    fun conjured_expired_brie_increases_4_per_day() {
+    fun conjured_expired_brie_quality_increases_4_per_day() {
         val item = update_item_once(Item("Conjured Aged Brie", 0, 5))
         assertEquals(9, item.quality)
     }
