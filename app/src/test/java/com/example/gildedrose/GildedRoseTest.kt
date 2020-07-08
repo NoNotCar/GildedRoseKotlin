@@ -29,9 +29,8 @@ class GildedRoseTest {
         assertEquals(3,item.quality)
     }
     @Test fun quality_doesnt_exceed_50(){
-        val app2=single_item_setup(Item("Aged Brie",10,50))
-        app2.updateItems()
-        assertEquals(50,app2.items[0].quality)
+        val item=update_item_once(Item("Aged Brie",10,50))
+        assertEquals(50,item.quality)
     }
 
     @Test fun quality_is_never_negative(){
@@ -73,15 +72,15 @@ class GildedRoseTest {
         val item = update_item_once(Item("Backstage passes to a concert",5,30))
         assertEquals(33,item.quality)
         val item2 = update_item_once(Item("Backstage passes to a concert",2,30))
-        assertEquals(33,item.quality)
+        assertEquals(33,item2.quality)
     }
 
     @Test fun backstage_passes_are_worthless_if_expired(){
-        val app = single_item_setup(Item("Backstage passes to a concert",1,30))
-        app.updateItems()
-        assertEquals(0,app.items[0].quality)
-        app.updateItems()
-        assertEquals(0,app.items[0].quality)
+        val item=Item("Backstage passes to a concert",1,30)
+        update_item_once(item)
+        assertEquals(0,item.quality)
+        update_item_once(item)
+        assertEquals(0,item.quality)
     }
 
 
@@ -90,14 +89,15 @@ class GildedRoseTest {
 
     @Test fun conjured_items_degrade_faster(){
         //Checks that ordinary "Conjured" items degrade 2 per day
-        val app = single_item_setup(Item("Conjured spam", 10, 3))
+        val item=Item("Conjured spam", 10, 3)
+        val app = single_item_setup(item)
         app.updateItems()
-        assertEquals("Conjured spam", app.items[0].name)
-        assertEquals(9, app.items[0].sellIn)
-        assertEquals(1,app.items[0].quality)
+        assertEquals("Conjured spam", item.name)
+        assertEquals(9, item.sellIn)
+        assertEquals(1,item.quality)
         //Checks that the quality can't go negative
         app.updateItems()
-        assertEquals(0,app.items[0].quality)
+        assertEquals(0,item.quality)
     }
 
     @Test fun conjured_expired_degrade_at_4_per_day(){
@@ -109,22 +109,24 @@ class GildedRoseTest {
 
     @Test fun conjured_brie(){
         //Checks that Conjured brie increases by 2
-        val app = single_item_setup(Item("Conjured Aged Brie", 2, 5))
+        val brie=Item("Conjured Aged Brie", 2, 5)
+        val app = single_item_setup(brie)
         app.updateItems()
-        assertEquals(7,app.items[0].quality)
+        assertEquals(7,brie.quality)
         //Checks that the Conjured, expired brie increases by 4
         app.updateItems()
-        assertEquals(11,app.items[0].quality)
+        assertEquals(11,brie.quality)
     }
 
     @Test fun conjured_passes(){
         //Checks that passes increase at twice the usual rate (+2)
-        val app = single_item_setup(Item("Conjured Backstage passes", 11, 5))
+        val item=Item("Conjured Backstage passes", 11, 5)
+        val app = single_item_setup(item)
         app.updateItems()
-        assertEquals(7,app.items[0].quality)
+        assertEquals(7,item.quality)
         //Checks that the Conjured, passes with 10 or fewer days to go increase by 4 (+4)
         app.updateItems()
-        assertEquals(11,app.items[0].quality)
+        assertEquals(11,item.quality)
     }
 
     @Test fun conjured_sulfuras_doesnt_change_in_quality(){
