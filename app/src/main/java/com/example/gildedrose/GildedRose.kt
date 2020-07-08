@@ -6,16 +6,16 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateItems() {
         items.forEach {
-            updateSellin(it)
-            updateQuality(it)
-            //bop(it)
+            if (!it.name.contains("Sulfuras")) {
+                updateSellin(it)
+                updateQuality(it)
+                //bop(it)
+            }
         }
     }
 
     private fun updateSellin(item: Item) {
-        if (!item.name.contains("Sulfuras")) {
-            item.sellIn--
-        }
+        item.sellIn--
     }
 
     private fun getQualityDecay(item: Item): Int {
@@ -34,9 +34,6 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateQuality(item: Item) {
-        if (item.name.contains("Sulfuras")) {
-            return
-        }
         var qualityDecay = getQualityDecay(item)
         if (item.sellIn <= 0) {
             qualityDecay *= 2
@@ -46,7 +43,7 @@ class GildedRose(var items: Array<Item>) {
         }
         item.quality -= qualityDecay
         //clamp quality
-        item.quality = min(50,kotlin.math.max(item.quality,0)) //apparently max is ambiguous???
+        item.quality = min(50, kotlin.math.max(item.quality, 0)) //apparently max is ambiguous???
     }
 
 
