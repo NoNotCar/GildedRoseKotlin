@@ -6,7 +6,7 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateItems() {
         items.forEach {
-            if (!it.name.contains("Sulfuras")) {
+            if (!it.name.toLowerCase().contains("sulfuras")) {
                 updateSellin(it)
                 updateQuality(it)
                 //bop(it)
@@ -19,9 +19,9 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun getQualityDecay(item: Item): Int {
-        if (item.name.contains("Aged Brie")) {
+        if (item.name.toLowerCase().contains("aged brie")) {
             return -1
-        } else if (item.name.contains("Backstage passes")) {
+        } else if (item.name.toLowerCase().contains("backstage passes")) {
             return when {
                 (item.sellIn <= 0) -> item.quality //expired ticket, quality>=0 so doubling won't affect this
                 (item.sellIn < 5) -> -3
@@ -38,7 +38,7 @@ class GildedRose(var items: Array<Item>) {
         if (item.sellIn <= 0) {
             qualityDecay *= 2
         }
-        if (item.name.contains("Conjured")) {
+        if (item.name.toLowerCase().contains("conjured")) {
             qualityDecay *= 2
         }
         item.quality -= qualityDecay
