@@ -23,7 +23,7 @@ class GildedRose(var items: Array<Item>) {
             return -1
         } else if (item.name.toLowerCase().contains("backstage passes")) {
             return when {
-                (item.sellIn <= 0) -> item.quality //expired ticket, quality>=0 so doubling won't affect this
+                (item.sellIn < 0) -> item.quality //expired ticket, quality>=0 so doubling won't affect this
                 (item.sellIn < 5) -> -3
                 (item.sellIn < 10) -> -2
                 else -> -1
