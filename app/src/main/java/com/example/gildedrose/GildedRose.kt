@@ -6,7 +6,7 @@ class GildedRose(var items: Array<Item>) {
             i.sellIn--
         }
     }
-    fun getDelta(i:Item):Int{
+    fun getQualityDecay(i:Item):Int{
         if (i.name.contains("Aged Brie")){
             return 1
         }else if (i.name.contains("Backstage passes")){
@@ -20,25 +20,25 @@ class GildedRose(var items: Array<Item>) {
             return -1
         }
     }
-    fun decay(i:Item){
+    fun updateQuality(i:Item){
         if (i.name.contains("Sulfuras")){
             return
         }
-        var delta=getDelta(i)
+        var qDecay=getQualityDecay(i)
         if (i.sellIn<=0){
-            delta*=2
+            qDecay*=2
         }
         if (i.name.contains("Conjured")){
-            delta*=2
+            qDecay*=2
         }
-        i.quality+=delta
+        i.quality+=qDecay
         //clamp quality
         i.quality=when{(i.quality<0)->0;(i.quality>50)->50;else->i.quality}
     }
-    fun updateQuality() {
+    fun updateItems() {
         items.forEach{
             age(it)
-            decay(it)
+            updateQuality(it)
             //bop(it)
         }
     }
