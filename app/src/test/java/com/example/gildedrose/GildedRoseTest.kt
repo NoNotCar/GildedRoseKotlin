@@ -167,7 +167,7 @@ class GildedRoseTest {
         assertEquals(5, item.quality)
     }
     @Test
-    fun case_independance(){
+    fun all_tests_pass_with_UPPER_and_lower_case_letters(){
         val app=GildedRose(arrayOf(
             Item("cOnjuRed bRie 7",6,10),
             Item("bAckstage PaSses to TROMBONE-101",3,7),
