@@ -7,29 +7,26 @@ class GildedRoseTest {
     fun single_item_setup(i:Item):GildedRose{
         return GildedRose(arrayOf(i))
     }
-    fun single_item_test(i:Item):Item{
+    fun update_item_once(i:Item):Item{
         val app=single_item_setup(i)
         app.updateItems()
         return app.items[0]
     }
     @Test fun basic_items_quality_falls_once_per_day() {
-        val item = single_item_test(Item("spam", 10, 5))
+        val item = update_item_once(Item("spam", 10, 5))
         assertEquals("spam", item.name)
         assertEquals(4,item.quality)
-
     }
 
     @Test fun basic_items_sellin_falls_once_per_day() {
-        val app = single_item_setup(Item("spam", 10, 5))
-        app.updateItems()
-        assertEquals("spam", app.items[0].name)
-        assertEquals(9, app.items[0].sellIn)
+        val item = update_item_once(Item("spam", 10, 5))
+        assertEquals("spam", item.name)
+        assertEquals(9, item.sellIn)
 
     }
     @Test fun expired_items_degrade_twice_as_fast(){
-        val app = single_item_setup(Item("dodgy milk", 0, 5))
-        app.updateItems()
-        assertEquals(3,app.items[0].quality)
+        val item = update_item_once(Item("dodgy milk", 0, 5))
+        assertEquals(3,item.quality)
     }
     @Test fun quality_doesnt_exceed_50(){
         val app2=single_item_setup(Item("Aged Brie",10,50))
@@ -38,54 +35,45 @@ class GildedRoseTest {
     }
 
     @Test fun quality_is_never_negative(){
-        val app = single_item_setup(Item("pile of rust", 0, 0))
-        app.updateItems()
-        assertEquals(0,app.items[0].quality)
+        val item = update_item_once(Item("pile of rust", 0, 0))
+        assertEquals(0,item.quality)
 
         //Check this is still true for a "worst case" conjured, expired item
-        val app1 = single_item_setup(Item("Conjured something", 0, 1))
-        app1.updateItems()
-        assertEquals(0,app1.items[0].quality)
+        val item2 = update_item_once(Item("Conjured something", 0, 1))
+        assertEquals(0,item2.quality)
     }
 
     @Test fun brie_quality_increases_with_time(){
-        val app = single_item_setup(Item("Aged Brie",10,30))
-        app.updateItems()
-        assertEquals(31,app.items[0].quality)
+        val item = update_item_once(Item("Aged Brie",10,30))
+        assertEquals(31,item.quality)
     }
 
     @Test fun Sulfuras_is_legendary_and_so_does_not_degrade(){
-        val app = single_item_setup(Item("Sulfuras, Hand of Ragnaros",10,30))
-        app.updateItems()
-        assertEquals(30,app.items[0].quality)
-        assertEquals(10,app.items[0].sellIn)
+        val item = update_item_once(Item("Sulfuras, Hand of Ragnaros",10,30))
+        assertEquals(30,item.quality)
+        assertEquals(10,item.sellIn)
 
     }
     @Test fun Backstage_Passes_up_by_1_with_time(){
-        val app = single_item_setup(Item("Backstage passes to a concert",11,30))
-        app.updateItems()
-        assertEquals(31,app.items[0].quality)
+        val item = update_item_once(Item("Backstage passes to a concert",11,30))
+        assertEquals(31,item.quality)
     }
 
 
 
     @Test fun Backstage_Passes_up_by_2_with_time_between_10_and_6_days(){
-        val app = single_item_setup(Item("Backstage passes to a concert",10,30))
-        app.updateItems()
-        assertEquals(32,app.items[0].quality)
-        val app1 = single_item_setup(Item("Backstage passes to a concert",6,30))
-        app1.updateItems()
-        assertEquals(32,app1.items[0].quality)
+        val item = update_item_once(Item("Backstage passes to a concert",10,30))
+        assertEquals(32,item.quality)
+        val item2 = update_item_once(Item("Backstage passes to a concert",6,30))
+        assertEquals(32,item.quality)
 
     }
 
     @Test fun Backstage_Passes_up_by_3_with_time_between_5_and_1_days(){
-        val app = single_item_setup(Item("Backstage passes to a concert",5,30))
-        app.updateItems()
-        assertEquals(33,app.items[0].quality)
-        val app1 = single_item_setup(Item("Backstage passes to a concert",2,30))
-        app1.updateItems()
-        assertEquals(33,app1.items[0].quality)
+        val item = update_item_once(Item("Backstage passes to a concert",5,30))
+        assertEquals(33,item.quality)
+        val item2 = update_item_once(Item("Backstage passes to a concert",2,30))
+        assertEquals(33,item.quality)
     }
 
     @Test fun Backstage_Passes_are_worthless_if_expired(){
@@ -113,9 +101,8 @@ class GildedRoseTest {
     }
 
     @Test fun conjured_expired_degrade_at_4_per_day(){
-        val app = single_item_setup(Item("Conjured spam", 1, 7))
-        app.updateItems()
-        assertEquals(3, app.items[0].quality)
+        val item = update_item_once(Item("Conjured spam", 1, 7))
+        assertEquals(3, item.quality)
 
 
     }
@@ -142,9 +129,8 @@ class GildedRoseTest {
 
     @Test fun Conjured_Sulfuras_doesnt_change_in_quality(){
         //Checks that conjured sulfuras doesn't change in quality
-        val app = single_item_setup(Item("Conjured Sulfuras", 11, 5))
-        app.updateItems()
-        assertEquals(5,app.items[0].quality)
+        val item = update_item_once(Item("Conjured Sulfuras", 11, 5))
+        assertEquals(5,item.quality)
     }
 }
 
