@@ -7,11 +7,15 @@ class GildedRoseTest {
     fun single_item_setup(i:Item):GildedRose{
         return GildedRose(arrayOf(i))
     }
-    @Test fun basic_items_quality_falls_once_per_day() {
-        val app = single_item_setup(Item("spam", 10, 5))
+    fun single_item_test(i:Item):Item{
+        val app=single_item_setup(i)
         app.updateItems()
-        assertEquals("spam", app.items[0].name)
-        assertEquals(4,app.items[0].quality)
+        return app.items[0]
+    }
+    @Test fun basic_items_quality_falls_once_per_day() {
+        val item = single_item_test(Item("spam", 10, 5))
+        assertEquals("spam", item.name)
+        assertEquals(4,item.quality)
 
     }
 
