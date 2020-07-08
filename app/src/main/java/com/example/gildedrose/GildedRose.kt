@@ -6,24 +6,30 @@ class GildedRose(var items: Array<Item>) {
             i.sellIn--
         }
     }
-    fun decay(i:Item){
-        var delta=0 //amount quality changes by
+    fun getDelta(i:Item):Int{
         if (i.name.contains("Aged Brie")){
-            delta=1
+            return 1
         }else if (i.name.contains("Backstage passes")){
             if (i.sellIn<=0){
                 i.quality=0 //expired ticket, set quality to 0 without delta as don't want doubling
+                return 0
             }
             else if (i.sellIn<5){
-                delta=3
+                return 3
             }else if (i.sellIn<10){
-                delta=2
+                return 2
             }else{
-                delta=1
+                return 1
             }
         } else {
-            delta=-1
+            return -1
         }
+    }
+    fun decay(i:Item){
+        if (i.name.contains("Sulfuras")){
+            return
+        }
+        var delta=getDelta(i)
         if (i.sellIn<=0){
             delta*=2
         }
