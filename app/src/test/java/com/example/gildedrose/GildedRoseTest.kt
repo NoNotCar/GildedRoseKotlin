@@ -166,6 +166,19 @@ class GildedRoseTest {
         val item = update_item_once(Item("Conjured Sulfuras", 11, 5))
         assertEquals(5, item.quality)
     }
+    @Test
+    fun case_independance(){
+        val app=GildedRose(arrayOf(
+            Item("cOnjuRed bRie 7",6,10),
+            Item("bAckstage PaSses to TROMBONE-101",3,7),
+            Item("Our lord SulFuras's toeNails",10,3)
+        ))
+        app.updateItems()
+        assertEquals(8,app.items[0].quality)
+        assertEquals(10,app.items[1].quality)
+        assertEquals(10,app.items[2].sellIn)
+        assertEquals(3,app.items[2].quality)
+    }
 }
 
 
