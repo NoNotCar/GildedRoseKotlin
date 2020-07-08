@@ -33,11 +33,7 @@ class GildedRose(var items: Array<Item>) {
         }
         i.quality+=delta
         //clamp quality
-        if (i.quality<0){
-            i.quality=0
-        }else if (i.quality>50){
-            i.quality=50
-        }
+        i.quality=when{(i.quality<0)->0;(i.quality>50)->50;else->i.quality}
     }
     fun updateQuality() {
         items.forEach{
