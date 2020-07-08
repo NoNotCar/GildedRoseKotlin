@@ -65,7 +65,7 @@ class GildedRoseTest {
         val item = update_item_once(Item("Backstage passes to a concert",10,30))
         assertEquals(32,item.quality)
         val item2 = update_item_once(Item("Backstage passes to a concert",6,30))
-        assertEquals(32,item.quality)
+        assertEquals(32,item2.quality)
 
     }
 
@@ -128,7 +128,6 @@ class GildedRoseTest {
     }
 
     @Test fun Conjured_Sulfuras_doesnt_change_in_quality(){
-        //Checks that conjured sulfuras doesn't change in quality
         val item = update_item_once(Item("Conjured Sulfuras", 11, 5))
         assertEquals(5,item.quality)
     }
