@@ -10,16 +10,11 @@ class GildedRose(var items: Array<Item>) {
         if (i.name.contains("Aged Brie")){
             return 1
         }else if (i.name.contains("Backstage passes")){
-            if (i.sellIn<=0){
-                i.quality=0 //expired ticket, set quality to 0 without delta as don't want doubling
-                return 0
-            }
-            else if (i.sellIn<5){
-                return 3
-            }else if (i.sellIn<10){
-                return 2
-            }else{
-                return 1
+            return when{
+                (i.sellIn<=0)-> -i.quality //expired ticket, quality>=0 so doubling won't affect this
+                (i.sellIn<5)-> 3
+                (i.sellIn<10)-> 2
+                else-> 1
             }
         } else {
             return -1
